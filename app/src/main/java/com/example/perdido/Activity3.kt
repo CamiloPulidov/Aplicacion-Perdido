@@ -30,12 +30,9 @@ class Activity3 : AppCompatActivity() {
 
         val correo = findViewById<EditText>(R.id.editTextTextEmailAddress)
 
-
         val contrasena = findViewById<EditText>(R.id.editTextTextPassword3)
 
-
         val repContrasena = findViewById<EditText>(R.id.editTextTextPassword2)
-
 
         val telefono = findViewById<EditText>(R.id.editTextPhone)
 
@@ -55,15 +52,18 @@ class Activity3 : AppCompatActivity() {
             // Validar que ningún campo esté vacío
 
             if (textoNombre.isEmpty() || textoApellido.isEmpty() || textoCorreo.isEmpty() ||
-                textoContrasena.isEmpty() || textoRepContrasena.isEmpty() || textoTelefono.isEmpty()
-            ) {
+                textoContrasena.isEmpty() || textoRepContrasena.isEmpty() || textoTelefono.isEmpty())
+            {
 
                 // Mostrar un mensaje de error (puede ser un Toast o un mensaje en un TextView)
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT)
                     .show()
-            } else {
+            }
+            else
+            {
                 // Si todos los campos están llenos, procede con la acción
-                if (textoContrasena == textoRepContrasena) {
+                if (textoContrasena == textoRepContrasena)
+                {
                     // Las contraseñas coinciden, agregar registro
                     Registro.agregarRegistro(
                         textoNombre,
@@ -76,7 +76,9 @@ class Activity3 : AppCompatActivity() {
                     // Iniciar la nueva actividad
                     val intent = Intent(this, Casa::class.java)
                     startActivity(intent)
-                } else {
+                }
+                else
+                {
                     // Las contraseñas no coinciden, mostrar un mensaje de error
                     Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
                 }
