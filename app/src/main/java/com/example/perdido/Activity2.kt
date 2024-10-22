@@ -31,22 +31,25 @@ class Activity2 : AppCompatActivity() {
         }
         boton2.setOnClickListener {
             val correo = findViewById<EditText>(R.id.editTextTextPostalAddress).text.toString().trim()
-
             val contrasena = findViewById<EditText>(R.id.editTextTextPassword).text.toString().trim()
 
             if (correo.isEmpty() || contrasena.isEmpty()) {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
             } else {
-                if (Registro.iniciarSesion(correo, contrasena)) {
-                    // Inicio de sesión exitoso
-                    val intent = Intent(this,Casa::class.java)
-                    startActivity(intent)
-                } else {
-                    // Credenciales incorrectas
-                    Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                // Usa el callback de `iniciarSesion`
+                Registro.iniciarSesion(correo, contrasena) { success ->
+                    if (success) {
+                        // Inicio de sesión exitoso
+                        val intent = Intent(this, Casa::class.java)
+                        startActivity(intent)
+                    } else {
+                        // Credenciales incorrectas
+                        Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
+
 
 
 

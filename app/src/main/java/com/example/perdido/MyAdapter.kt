@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
-class MyAdapter(private val itemList: List<MyItem>, private val onItemClick: (MyItem) -> Unit) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
+class MyAdapter(private var itemList: List<MyItem>, private val onItemClick: (MyItem) -> Unit) : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     // ViewHolder: Contiene las vistas para cada elemento
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -24,7 +25,13 @@ class MyAdapter(private val itemList: List<MyItem>, private val onItemClick: (My
     // Enlazar los datos a las vistas del ViewHolder
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = itemList[position]
-        holder.imageView.setImageResource(currentItem.imageResource)
+
+        // Cargar la imagen desde la URL usando Glide
+        Glide.with(holder.itemView.context)
+            .load(currentItem.imageUrl)  // Cargar la URL de la imagen
+            .placeholder(R.drawable.logo) // Imagen de marcador de posición (opcional)
+            .into(holder.imageView) // Colocar la imagen en el ImageView
+
         holder.title.text = currentItem.title
 
         // Asignar el listener de clic
@@ -35,6 +42,10 @@ class MyAdapter(private val itemList: List<MyItem>, private val onItemClick: (My
 
     // Retornar el tamaño de la lista
     override fun getItemCount() = itemList.size
+
+    // Método para actualizar la lista de items
+    fun updateData(newItemList: List<MyItem>) {
+        itemList = newItemList
+        notifyDataSetChanged()  // Notifica al RecyclerView que los datos han cambiado
+    }
 }
-
-

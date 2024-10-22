@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "757105783368",
+    "project_id": "objetos-perdidos-88241",
+    "storage_bucket": "objetos-perdidos-88241.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757105783368:android:a87db570d4c2ff64a35e7d",
+        "android_client_info": {
+          "package_name": "com.example.perdido"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPXC6TwoM1s-PNX3SJYnQOvrhcd8ya0fs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

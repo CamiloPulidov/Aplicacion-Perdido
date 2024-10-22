@@ -1,26 +1,59 @@
 package com.example.perdido
+import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 
-
-data class MyItem(  val imageResource: Int, // Para imágenes de recursos
-                    val title: String,
-                    val descripcion: String,
-                    val lugar: String
+data class MyItem(
+    val imageResource: Int, // Recurso de imagen local
+    val imageUrl: String, // Usaremos una URL para la imagen
+    val title: String,
+    val descripcion: String,
+    val lugar: String
 )
+
+
+
+
 class ObjetoProvider {
-    companion object{
-        // Lista de datos
-        val itemList = mutableListOf(
-            MyItem(imageResource = R.drawable.lupa1, title = "OBJETO 1", descripcion = "una lupa", lugar = "bogota"),
-            MyItem(imageResource = R.drawable.logo, title = "OBJETO 2", descripcion = "un logo", lugar = "bogota"),
-            MyItem(imageResource = R.drawable.usuario1, title = "OBJETO 3", descripcion = "un usuario", lugar = "bogota")
-        )
-        // Método para agregar un objeto con un recurso de imagen
-        fun agregarObjeto( title: String, descripcion: String, lugar: String) {
-            itemList.add(MyItem(imageResource = R.drawable.lupa1, title = title, descripcion = descripcion, lugar = lugar))
+
+    companion object {
+        private val db = FirebaseFirestore.getInstance()
+        private val collectionName = "objetosPerdidos"
+
+        // Método para agregar un objeto a Firebase Firestore
+        fun agregarObjeto(imageUrl: String, title: String, descripcion: String, lugar: String) {
+            val objeto = hashMapOf(
+                "imageUrl" to imageUrl,
+                "title" to title,
+                "descripcion" to descripcion,
+                "lugar" to lugar
+            )
+
+            db.collection(collectionName)
+                .add(objeto)
+                .addOnSuccessListener {
+                    Log.d("Firebase", "Objeto agregado correctamente")
+                }
+                .addOnFailureListener { e ->
+                    Log.w("Firebase", "Error al agregar el objeto", e)
+                }
         }
 
 
+        // Método para obtener objetos desde Firebase Firestore
+        fun obtenerObjetos(callback: (List<MyItem>) -> Unit) {
+            db.collection(collectionName)
+                .get()
+                .addOnSuccessListener { result ->
+                    val objetos = result.map { document ->
+                        document.toObject(MyItem::class.java)
+                    }
+                    callback(objetos)
+                }
+                .addOnFailureListener { e ->
+                    Log.w("Firestore", "Error obteniendo objetos", e)
+                }
+        }
     }
 }

@@ -67,30 +67,25 @@ class Agregar : AppCompatActivity() {
             val textoDescripcion = descripcion.text.toString().trim()
             val textoDonde = donde.text.toString().trim()
 
+            if (textoNombre.isEmpty() || textoDescripcion.isEmpty() || textoDonde.isEmpty()) {
+                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+            } else {
+                // Asegúrate de tener una URL de imagen, aquí puedes usar una imagen fija o una subida a Firebase Storage
+                val imageUrl = "https://ejemplo.com/imagen.png" // Cambia esto por la URL correcta
 
-
-            if ( textoNombre.isEmpty() || textoDescripcion.isEmpty() || textoDonde.isEmpty() )
-            {
-
-                // Mostrar un mensaje de error (puede ser un Toast o un mensaje en un TextView)
-                Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT)
-                    .show()
-            }
-            else
-            {
                 ObjetoProvider.agregarObjeto(
+                    imageUrl,
                     textoNombre,
                     textoDescripcion,
                     textoDonde
                 )
 
-                val intent = Intent(this,Casa::class.java)
+                val intent = Intent(this, Casa::class.java)
                 startActivity(intent)
                 overridePendingTransition(0, 0)
-
-
             }
         }
+
 
 
     }
