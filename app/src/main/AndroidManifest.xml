@@ -25,9 +25,6 @@
             android:name=".Guardado"
             android:exported="false" />
         <activity
-            android:name=".Casa2"
-            android:exported="false" />
-        <activity
             android:name=".Lupa"
             android:exported="false" />
         <activity

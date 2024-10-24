@@ -2,6 +2,7 @@ package com.example.perdido
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
@@ -15,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class Casa : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance() // Conexión a Firestore
+    private lateinit var adapter: MyAdapter // Inicialización del adapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,9 +31,8 @@ class Casa : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.rec)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-
         // Inicializa el adapter vacío
-        val adapter = MyAdapter(emptyList()) { item ->
+        adapter = MyAdapter(emptyList()) { item ->
             // Abrir una nueva actividad cuando se haga clic en un elemento
             val intent = Intent(this, Publicacion::class.java)
             intent.putExtra("imageResource", item.imageResource) // Pasar la imagen del objeto
@@ -42,8 +43,57 @@ class Casa : AppCompatActivity() {
         }
         recyclerView.adapter = adapter
 
-// Obtener los datos desde Firebase y actualizar el adapter
+        // Botones para filtrar
+        val boton3: Button = findViewById(R.id.button8)
+        val boton5: Button = findViewById(R.id.button7)
+
+        val view1 = findViewById<View>(R.id.view5)
+        val view2 = findViewById<View>(R.id.view6)
+        view1.visibility = View.VISIBLE
+        view2.visibility = View.GONE
+
+        // Cargar lista por defecto
+        cargarLista("perdido")
+
+        boton3.setOnClickListener {
+            cargarLista("encontrado") // Cambiar filtro a "encontrado"
+            view1.visibility = View.GONE
+            view2.visibility = View.VISIBLE
+        }
+
+        boton5.setOnClickListener {
+            cargarLista("perdido") // Cambiar filtro a "perdido"
+            view1.visibility = View.VISIBLE
+            view2.visibility = View.GONE
+        }
+
+        val boton: ImageButton = findViewById(R.id.imageButton2)
+        val boton2: ImageButton = findViewById(R.id.imageButton3)
+        val boton4: ImageButton = findViewById(R.id.roundButton)
+
+        boton.setOnClickListener {
+            val intent = Intent(this, Lupa::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+        boton2.setOnClickListener {
+            val intent = Intent(this, Usuario::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+
+        boton4.setOnClickListener {
+            val intent = Intent(this, Agregar::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+    }
+
+    // Función para cargar la lista filtrada según el tipo
+    private fun cargarLista(tipoMostrar: String) {
+        // Obtener los datos desde Firebase y actualizar el adapter
         db.collection("objetosPerdidos")
+            .whereEqualTo("tipo", tipoMostrar) // Filtra por el tipo (perdido o encontrado)
             .get()
             .addOnSuccessListener { result ->
                 val itemList = result.map { document ->
@@ -52,7 +102,8 @@ class Casa : AppCompatActivity() {
                         imageUrl = document.getString("imageUrl") ?: "", // Asegúrate de que tu Firestore tenga un campo "imageUrl"
                         title = document.getString("title") ?: "",
                         descripcion = document.getString("descripcion") ?: "",
-                        lugar = document.getString("lugar") ?: ""
+                        lugar = document.getString("lugar") ?: "",
+                        tipo = document.getString("tipo") ?: ""
                     )
                 }
                 adapter.updateData(itemList) // Actualiza los datos del RecyclerView
@@ -60,33 +111,5 @@ class Casa : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 // Manejo de errores, en caso de fallo en la consulta
             }
-
-        val boton: ImageButton = findViewById(R.id.imageButton2)
-        val boton2: ImageButton = findViewById(R.id.imageButton3)
-        val boton3: Button = findViewById(R.id.button8)
-        val boton4: ImageButton = findViewById(R.id.roundButton)
-
-
-        boton.setOnClickListener {
-            val intent = Intent(this,Lupa::class.java)
-            startActivity(intent)
-            overridePendingTransition(0, 0)
-        }
-        boton2.setOnClickListener {
-            val intent = Intent(this,Usuario::class.java)
-            startActivity(intent)
-            overridePendingTransition(0, 0)
-        }
-        boton3.setOnClickListener {
-            val intent = Intent(this,Casa2::class.java)
-            startActivity(intent)
-            overridePendingTransition(0, 0)
-        }
-        boton4.setOnClickListener {
-            val intent = Intent(this,Agregar::class.java)
-            startActivity(intent)
-            overridePendingTransition(0, 0)
-        }
-
     }
 }

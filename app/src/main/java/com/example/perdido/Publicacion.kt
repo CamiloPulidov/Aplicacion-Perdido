@@ -22,6 +22,9 @@ class Publicacion : AppCompatActivity() {
             insets
         }
 
+        val boton: Button = findViewById(R.id.button3)
+
+
         val imageView: ImageView = findViewById(R.id.imageViewDetail)
         val textView: TextView = findViewById(R.id.textViewDetail)
         val descripcion: TextView = findViewById(R.id.textView4)
@@ -35,5 +38,10 @@ class Publicacion : AppCompatActivity() {
         textView.text = title
         descripcion.text=descip
 
+        boton.setOnClickListener {
+            val intent = Intent(this,Casa::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
     }
 }

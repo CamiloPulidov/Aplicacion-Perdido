@@ -43,7 +43,7 @@ class Agregar : AppCompatActivity() {
 
         val imageView = ContextCompat.getDrawable(this, R.drawable.lupa2)
 
-
+        var objetoTipo:String= "perdido"
 
 
         boton.setOnClickListener {
@@ -55,19 +55,23 @@ class Agregar : AppCompatActivity() {
         boton2.setOnClickListener {
             boton3.setBackgroundColor(ContextCompat.getColor(this, R.color.gris))
             boton2.setBackgroundColor(ContextCompat.getColor(this, R.color.verde1))
+            objetoTipo="perdido"
         }
 
         boton3.setOnClickListener {
             boton2.setBackgroundColor(ContextCompat.getColor(this, R.color.gris))
             boton3.setBackgroundColor(ContextCompat.getColor(this, R.color.verde1))
+            objetoTipo="encontrado"
         }
 
         boton4.setOnClickListener {
             val textoNombre = nombre.text.toString().trim()
             val textoDescripcion = descripcion.text.toString().trim()
             val textoDonde = donde.text.toString().trim()
+            val textoTipo =objetoTipo.trim()
 
-            if (textoNombre.isEmpty() || textoDescripcion.isEmpty() || textoDonde.isEmpty()) {
+            if (textoNombre.isEmpty() || textoDescripcion.isEmpty() || textoDonde.isEmpty())
+            {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
             } else {
                 // Asegúrate de tener una URL de imagen, aquí puedes usar una imagen fija o una subida a Firebase Storage
@@ -77,7 +81,8 @@ class Agregar : AppCompatActivity() {
                     imageUrl,
                     textoNombre,
                     textoDescripcion,
-                    textoDonde
+                    textoDonde,
+                    textoTipo
                 )
 
                 val intent = Intent(this, Casa::class.java)
