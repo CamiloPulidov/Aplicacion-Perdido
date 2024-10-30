@@ -1,5 +1,6 @@
 package com.example.perdido
 
+import MyItem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

@@ -23,6 +23,9 @@ class Usuario : AppCompatActivity() {
         val boton2: ImageButton = findViewById(R.id.imageButton2)
         val boton6: Button = findViewById(R.id.button12)
 
+        val boton3: Button = findViewById(R.id.button9)
+        val boton4: Button = findViewById(R.id.button10)
+
         boton.setOnClickListener {
             val intent = Intent(this,Casa::class.java)
             startActivity(intent)
@@ -39,6 +42,18 @@ class Usuario : AppCompatActivity() {
             val intent = Intent(this,MainActivity::class.java)
             startActivity(intent)
 
+        }
+
+        boton3.setOnClickListener {
+            val intent = Intent(this,MisPublicaciones::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+
+        boton4.setOnClickListener {
+            val intent = Intent(this,Guardado::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
         }
 
 

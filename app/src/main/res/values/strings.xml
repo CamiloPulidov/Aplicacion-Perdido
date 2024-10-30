@@ -28,6 +28,8 @@
     <string name="nombre_objeto">Nombre Objeto</string>
     <string name="descripcion_objeto">Descripcion Objeto</string>
     <string name="donde">Donde</string>
+    <string name="busqueda">Busqueda</string>
+    <string name="guardar">Guardar</string>
 
 
 </resources>

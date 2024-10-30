@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
 
 class Agregar : AppCompatActivity() {
 
@@ -74,6 +75,10 @@ class Agregar : AppCompatActivity() {
             {
                 Toast.makeText(this, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
             } else {
+
+                // Aquí deberías obtener el ID del usuario autenticado, por ejemplo:
+                val idUsuario = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+
                 // Asegúrate de tener una URL de imagen, aquí puedes usar una imagen fija o una subida a Firebase Storage
                 val imageUrl = "https://ejemplo.com/imagen.png" // Cambia esto por la URL correcta
 
@@ -82,7 +87,8 @@ class Agregar : AppCompatActivity() {
                     textoNombre,
                     textoDescripcion,
                     textoDonde,
-                    textoTipo
+                    textoTipo,
+                    idUsuario
                 )
 
                 val intent = Intent(this, Casa::class.java)

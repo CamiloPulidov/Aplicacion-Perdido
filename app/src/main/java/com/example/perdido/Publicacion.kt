@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
 
 class Publicacion : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +34,7 @@ class Publicacion : AppCompatActivity() {
         val imageResource = intent.getIntExtra("imageResource", 0)
         val title = intent.getStringExtra("title")
         val descip =intent.getStringExtra("descripcion")
+
         // Establecer los datos en la vista
         imageView.setImageResource(imageResource)
         textView.text = title
@@ -42,6 +44,14 @@ class Publicacion : AppCompatActivity() {
             val intent = Intent(this,Casa::class.java)
             startActivity(intent)
             overridePendingTransition(0, 0)
+        }
+
+        val boton2: Button = findViewById(R.id.button16)
+
+        boton2.setOnClickListener {
+            val idUsuario = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+            val idObjeto = intent.getStringExtra("idObjeto") ?: ""
+            ListaGuardado.agregarRelacion(idUsuario, idObjeto)
         }
     }
 }
