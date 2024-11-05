@@ -40,22 +40,45 @@ class ObjetoProvider {
                     Log.w("Firebase", "Error al agregar el objeto", e)
                 }
         }
-
-        // Método para obtener objetos desde Firebase Firestore con sus IDs
-        fun obtenerObjetos(callback: (List<MyItem>) -> Unit) {
+        fun obtenerIdUsuario(idObjeto: String, callback: (String?) -> Unit) {
             db.collection(collectionName1)
+                .document(idObjeto)
                 .get()
-                .addOnSuccessListener { result ->
-                    val objetos = result.map { document ->
-                        val item = document.toObject(MyItem::class.java)
-                        item.idObjeto = document.id // Asigna el ID del documento al campo id del objeto
-                        item
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val idUsuario = document.getString("idUsuario")
+                        callback(idUsuario) // Llama al callback con el idUsuario
+                    } else {
+                        Log.d("Firebase", "No se encontró el objeto con el ID especificado")
+                        callback(null)
                     }
-                    callback(objetos)
                 }
                 .addOnFailureListener { e ->
-                    Log.w("Firestore", "Error obteniendo objetos", e)
+                    Log.w("Firebase", "Error al obtener el idUsuario", e)
+                    callback(null)
                 }
         }
+
+        // Método para actualizar los campos 'title' y 'descripcion' de un objeto en Firebase
+        fun actualizarObjeto(idObjeto: String, nuevoTitle: String, nuevaDescripcion: String, nuevoLugar: String, onSuccess: () -> Unit, onFailure: (Exception) -> Unit) {
+            val updates = hashMapOf(
+                "title" to nuevoTitle,
+                "descripcion" to nuevaDescripcion,
+                "lugar" to nuevoLugar
+            )
+
+            db.collection(collectionName1)
+                .document(idObjeto)
+                .update(updates as Map<String, Any>)
+                .addOnSuccessListener {
+                    Log.d("Firebase", "Objeto actualizado correctamente con ID: $idObjeto")
+                    onSuccess()
+                }
+                .addOnFailureListener { e ->
+                    Log.w("Firebase", "Error al actualizar el objeto", e)
+                    onFailure(e)
+                }
+        }
+
     }
 }

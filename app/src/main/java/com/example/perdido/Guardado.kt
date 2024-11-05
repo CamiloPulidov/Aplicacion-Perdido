@@ -53,8 +53,9 @@ class Guardado : AppCompatActivity() {
         }
 
         val boton: Button = findViewById(R.id.button3)
+
         boton.setOnClickListener {
-            val intent = Intent(this, Usuario::class.java)
+                                   val intent = Intent(this, Usuario::class.java)
             startActivity(intent)
             overridePendingTransition(0, 0)
         }

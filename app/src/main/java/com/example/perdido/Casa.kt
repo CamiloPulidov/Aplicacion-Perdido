@@ -2,6 +2,7 @@ package com.example.perdido
 
 import MyItem
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -31,6 +32,18 @@ class Casa : AppCompatActivity() {
 
         val recyclerView: RecyclerView = findViewById(R.id.rec)
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        recyclerView.addItemDecoration(object : RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                outRect.set(0, 0, 0, 0) // Sin espacio entre elementos
+            }
+        })
+
 
         // Inicializa el adapter vacío
         adapter = MyAdapter(emptyList()) { item: MyItem ->

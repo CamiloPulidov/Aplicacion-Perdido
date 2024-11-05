@@ -2,6 +2,7 @@ package com.example.perdido
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 
 data class Guardados(
     val idUsuario: String = "",
@@ -13,18 +14,46 @@ class ListaGuardado {
         private val db = FirebaseFirestore.getInstance()
         private val collectionName = "userObjectRelations" // Nombre de la colección en Firestore
 
-        // Función para agregar una relación entre usuario y objeto
+        // Función para verificar, eliminar o agregar una relación entre usuario y objeto
         fun agregarRelacion(idUsuario: String, idObjeto: String) {
-            val relacion = Guardados(idUsuario = idUsuario, idObjeto = idObjeto)
-
             db.collection(collectionName)
-                .add(relacion)
-                .addOnSuccessListener {
-                    Log.d("Firebase", "Relación agregada correctamente")
+                .whereEqualTo("idUsuario", idUsuario)
+                .whereEqualTo("idObjeto", idObjeto)
+                .get()
+                .addOnSuccessListener { result ->
+                    if (result.isEmpty) {
+                        // Si no existe, agrega la relación
+                        val relacion = Guardados(idUsuario = idUsuario, idObjeto = idObjeto)
+                        db.collection(collectionName)
+                            .add(relacion)
+                            .addOnSuccessListener {
+                                Log.d("Firebase", "Relación agregada correctamente")
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w("Firebase", "Error al agregar la relación", e)
+                            }
+                    } else {
+                        // Si ya existe, elimínala
+                        eliminarRelacionExistente(result)
+                    }
                 }
                 .addOnFailureListener { e ->
-                    Log.w("Firebase", "Error al agregar la relación", e)
+                    Log.w("Firebase", "Error al verificar la relación existente", e)
                 }
+        }
+
+        // Función para eliminar la relación existente
+        private fun eliminarRelacionExistente(result: QuerySnapshot) {
+            for (document in result) {
+                db.collection(collectionName).document(document.id)
+                    .delete()
+                    .addOnSuccessListener {
+                        Log.d("Firebase", "Relación eliminada correctamente")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.w("Firebase", "Error al eliminar la relación", e)
+                    }
+            }
         }
 
         // Función para obtener todos los idObjeto de un idUsuario dado

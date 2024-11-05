@@ -88,44 +88,10 @@
         app:cornerRadius="@dimen/cardview_default_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.347"
-        app:strokeWidth="1dp" />
-
-    <Button
-        android:id="@+id/button10"
-        android:layout_width="190dp"
-        android:layout_height="70dp"
-        android:backgroundTint="@color/gris"
-        android:text="@string/guardado"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        app:cornerRadius="@dimen/cardview_default_radius"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
-        app:strokeWidth="1dp" />
-
-    <Button
-        android:id="@+id/button11"
-        android:layout_width="190dp"
-        android:layout_height="70dp"
-        android:backgroundTint="@color/gris"
-        android:text="@string/editar_cuenta"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        app:cornerRadius="@dimen/cardview_default_radius"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.647"
+        app:layout_constraintVertical_bias="0.272"
         app:strokeWidth="1dp" />
 
     <Button
@@ -139,10 +105,44 @@
         app:cornerRadius="@dimen/cardview_default_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.791"
+        app:layout_constraintVertical_bias="0.717"
+        app:strokeWidth="1dp" />
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="190dp"
+        android:layout_height="70dp"
+        android:backgroundTint="@color/gris"
+        android:text="@string/editar_cuenta"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:cornerRadius="@dimen/cardview_default_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.573"
+        app:strokeWidth="1dp" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="190dp"
+        android:layout_height="70dp"
+        android:backgroundTint="@color/gris"
+        android:text="@string/guardado"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:cornerRadius="@dimen/cardview_default_radius"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.425"
         app:strokeWidth="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
