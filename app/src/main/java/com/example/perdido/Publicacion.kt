@@ -1,6 +1,9 @@
 package com.example.perdido
 
+import android.content.ContentResolver
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -31,11 +34,20 @@ class Publicacion : AppCompatActivity() {
         val imageView: ImageView = findViewById(R.id.imageViewDetail)
 
 
+
         // Obtener los datos del intent
         val imageResource = intent.getIntExtra("imageResource", 0)
         val title = intent.getStringExtra("title")
         val descip =intent.getStringExtra("descripcion")
         val lugar =intent.getStringExtra("lugar")
+        val imageUriString = intent.getStringExtra("imageUrl")
+
+        imageUriString?.let {
+            val imageUri = Uri.parse(it)
+            val imageButton = findViewById<ImageButton>(R.id.mostrar)
+            imageButton.setImageURI(imageUri)
+        }
+
 
 
         boton.setOnClickListener {
@@ -142,4 +154,5 @@ class Publicacion : AppCompatActivity() {
 
 
     }
+
 }
