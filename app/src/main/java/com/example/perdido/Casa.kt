@@ -115,7 +115,7 @@ class Casa : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 val itemList = result.map { document ->
                     MyItem(
-                        imageResource = R.drawable.lupa2, // Recurso local predeterminado
+                        imageResource = R.drawable.ic_launcher_foreground, // Recurso local predeterminado
                         imageUrl = document.getString("imageUrl") ?: "", // Asegúrate de que tu Firestore tenga un campo "imageUrl"
                         title = document.getString("title") ?: "",
                         descripcion = document.getString("descripcion") ?: "",

@@ -42,11 +42,6 @@ class Publicacion : AppCompatActivity() {
         val lugar =intent.getStringExtra("lugar")
         val imageUriString = intent.getStringExtra("imageUrl")
 
-        imageUriString?.let {
-            val imageUri = Uri.parse(it)
-            val imageButton = findViewById<ImageButton>(R.id.mostrar)
-            imageButton.setImageURI(imageUri)
-        }
 
 
 
@@ -57,15 +52,38 @@ class Publicacion : AppCompatActivity() {
         }
 
         val boton2: Button = findViewById(R.id.button16)
+        val idUsuario = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+        val idObjeto = intent.getStringExtra("idObjeto") ?: ""
 
+// Verificar el estado inicial de la relación y configurar el texto del botón
+        ListaGuardado.existeRelacion(idUsuario, idObjeto) { existe ->
+            boton2.text = if (existe) "Guardado" else "Guardar"
+        }
+
+// Manejar el clic en el botón para cambiar la relación en tiempo real
         boton2.setOnClickListener {
-            val idUsuario = FirebaseAuth.getInstance().currentUser?.uid ?: ""
-            val idObjeto = intent.getStringExtra("idObjeto") ?: ""
+            // Ejecutar la función agregarRelacion para alternar entre agregar/eliminar
             ListaGuardado.agregarRelacion(idUsuario, idObjeto)
+
+            // Escuchar los cambios en Firestore para actualizar el botón automáticamente
+            db.collection("userObjectRelations")
+                .whereEqualTo("idUsuario", idUsuario)
+                .whereEqualTo("idObjeto", idObjeto)
+                .addSnapshotListener { snapshot, e ->
+                    if (e != null) {
+                        Log.w("Firestore", "Error al escuchar los cambios en la relación", e)
+                        return@addSnapshotListener
+                    }
+
+                    // Actualizar el texto del botón en función del estado actual de la relación
+                    val existe = snapshot != null && !snapshot.isEmpty
+                    boton2.text = if (existe) "Guardado" else "Guardar"
+                }
         }
 
 
-        val idObjeto = intent.getStringExtra("idObjeto") ?: ""
+
+
         val editTextNombre: EditText = findViewById(R.id.editTextNombre)
         val editTextDescripcion: EditText = findViewById(R.id.editTextDescripcion)
         val editTextLugar:EditText = findViewById(R.id.editTextLugar)

@@ -72,5 +72,23 @@ class ListaGuardado {
                     callback(emptyList()) // Retornar una lista vacía en caso de error
                 }
         }
+
+
+        // Función para verificar si ya existe una relación entre usuario y objeto
+        fun existeRelacion(idUsuario: String, idObjeto: String, callback: (Boolean) -> Unit) {
+            db.collection(collectionName)
+                .whereEqualTo("idUsuario", idUsuario)
+                .whereEqualTo("idObjeto", idObjeto)
+                .get()
+                .addOnSuccessListener { result ->
+                    callback(!result.isEmpty) // Si el resultado no está vacío, existe la relación (true)
+                }
+                .addOnFailureListener { e ->
+                    Log.w("Firebase", "Error al verificar la relación existente", e)
+                    callback(false) // Retornar false en caso de error
+                }
+        }
+
+
     }
 }

@@ -77,7 +77,7 @@ class Agregar : AppCompatActivity() {
                 val idUsuario = FirebaseAuth.getInstance().currentUser?.uid ?: ""
 
                 // Asegúrate de tener una URL de imagen, aquí puedes usar una imagen fija o una subida a Firebase Storage
-                val imageUrl = imageUri?.toString() ?: "https://ejemplo.com/imagen.png" // Cambia esto por la URL correcta
+                val imageUrl = imageUri?.toString() ?: "https://www.google.com/search?sca_esv=5e5c67271c4d4da4&rlz=1C1ALOY_esCO977CO977&sxsrf=ADLYWIISLpviy5RO8n2N1P51g6NhjQNnuA:1730870556408&q=imagen+llaves&udm=2&fbs=AEQNm0CbCVgAZ5mWEJDg6aoPVcBgWizR0-0aFOH11Sb5tlNhd7Qv31WAq-g3XdD7m281OKyew6CGJrEYYQ4lESOC_x5KsvIVlG201Lyb3dylWXbacfPj5A3FfHczMG9d0EgLsThlsG8ygyJxdp_w2ISJmk02deuCKjE2H1-b7PIsmjxZ-MrEkf8KY9ZqmF-4Rxf4QHsN4LHDp1LtF9BHlqr3BH9uTtNMPw&sa=X&ved=2ahUKEwiCyaql-8aJAxWnRzABHfrJBxAQtKgLegQIFxAB&biw=1536&bih=730&dpr=1.25#vhid=Gy2Be9X-YOEuSM&vssid=mosaic" // Cambia esto por la URL correcta
 
                 ObjetoProvider.agregarObjeto(
                     imageUrl,
