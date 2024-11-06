@@ -12,6 +12,12 @@ data class MyItem(
     var idObjeto: String = "" // Campo id para almacenar el ID del documento
 )
 
+data class UsuarioData(
+    val idUsuario: String?,
+    val imageUrl: String?
+)
+
+
 class ObjetoProvider {
 
     companion object {
@@ -40,14 +46,16 @@ class ObjetoProvider {
                     Log.w("Firebase", "Error al agregar el objeto", e)
                 }
         }
-        fun obtenerIdUsuario(idObjeto: String, callback: (String?) -> Unit) {
+        fun obtenerIdUsuario(idObjeto: String, callback: (UsuarioData?) -> Unit) {
             db.collection(collectionName1)
                 .document(idObjeto)
                 .get()
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
                         val idUsuario = document.getString("idUsuario")
-                        callback(idUsuario) // Llama al callback con el idUsuario
+                        val imageUrl = document.getString("imageUrl") // Obtén el imageUrl
+                        val usuarioData =UsuarioData(idUsuario, imageUrl) // Crea una instancia de UsuarioData
+                        callback(usuarioData) // Llama al callback con el UsuarioData
                     } else {
                         Log.d("Firebase", "No se encontró el objeto con el ID especificado")
                         callback(null)
@@ -79,6 +87,10 @@ class ObjetoProvider {
                     onFailure(e)
                 }
         }
+
+
+
+
 
     }
 }

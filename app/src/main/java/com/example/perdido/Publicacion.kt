@@ -106,7 +106,8 @@ class Publicacion : AppCompatActivity() {
         val v_telefono = findViewById<TextView>(R.id.textViewNumero)
 
         // Obtener el ID del usuario asociado al objeto
-        ObjetoProvider.obtenerIdUsuario(idObjeto) { idUsuario ->
+        ObjetoProvider.obtenerIdUsuario(idObjeto) { usuarioData ->
+            val idUsuario = usuarioData?.idUsuario
             if (idUsuario != null) {
                 Log.d("Firebase", "ID de usuario: $idUsuario")
 
@@ -128,8 +129,8 @@ class Publicacion : AppCompatActivity() {
                 }
             } else {
                 Log.d("Firebase", "No se pudo obtener el ID de usuario")
-               }
             }
+        }
 
 
 

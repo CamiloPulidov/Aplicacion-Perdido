@@ -55,6 +55,7 @@ class Casa : AppCompatActivity() {
             intent.putExtra("descripcion", item.descripcion) // Pasar la descripción del objeto
             intent.putExtra("lugar", item.lugar) // Pasar el lugar del objeto
             intent.putExtra("idObjeto", item.idObjeto) // Asegúrate de pasar el idObjeto
+            intent.putExtra("imageUrl", item.imageUrl) // Asegúrate de pasar el idObjeto
             startActivity(intent)
         }
         recyclerView.adapter = adapter

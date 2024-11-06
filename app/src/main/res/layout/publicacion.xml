@@ -42,7 +42,7 @@
         android:layout_height="130dp"
         android:layout_marginTop="36dp"
         android:contentDescription="Detail Image"
-        android:scaleType="centerCrop"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
